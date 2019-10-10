@@ -1,3 +1,4 @@
+
 $(function() {
     $(".change-devour").on("click", function(event) {
         var id = $(this).data("id");
@@ -28,13 +29,13 @@ $(function() {
                 name: name
             };
 
-            
+           
             $.ajax("/api/burgers", {
                 type: "POST",
                 data: newBurger
             }).then(function() {
                 // console.log("created new burger");
-                
+               
                 location.reload();
             });
         }
@@ -54,3 +55,4 @@ $(function() {
         });
     });  
 });
+
