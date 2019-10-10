@@ -4,11 +4,7 @@ const burger = require("../models/burger.js");
 const router = express.Router();
 // Default the route to /burgers (Main Home Page)
 router.get("/", function(req, res) {
-  // res.redirect("/burgers");
-  burger.select(function(data) {
-    var hbsObject = { burgers: data };
-    res.render("index", hbsObject);
-  });
+  res.redirect("/burgers");
 });
 // Get Burgers
 router.get("/burgers", function(req, res) {
