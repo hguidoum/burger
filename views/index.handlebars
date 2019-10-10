@@ -1,34 +1,47 @@
+<div class="jumbotron header-bg"> 
+    {{!-- #fac126; --}}
+    <h1>Eat-Da-Burger</h1>
+</div>
 <div class="container">
-    <section id="page-name">
-        <iframe id="main-image" src="https://giphy.com/embed/UAXou95E6oPjW" width="480" height="326" frameBorder="0"
-            class="giphy-embed" allowFullScreen></iframe>
-        <h1>Eat-Da-Buger</h1>
-    </section>
-
-    <section class="row">
-        <div class="col-md-7 col-left">
-            <table>
-                {{#each burgers}}
-                {{#unless devoured}}
-                {{> burgers/burger-block}}
-                {{/unless}}
-                {{/each}}
-            </table>
-        </div>
-        <div class="col-md-5 col-right">
+    <div class="row">
+        <div class="col-lg-4">
+            <h2 class="header">Burgers to Devour</h2>
             {{#each burgers}}
-            {{#if devoured}}
-            <div>{{id}}. {{burger_name}}</div>
-            {{/if}}
+                {{#unless this.devoured}}
+                    <form action="/burgers/update/{{this.id}}?_method=PUT" method="POST">
+                        <div class="form-group">
+                            <ul>
+                                <li>
+                                    <button type="submit" name="devoured" value="1" class="btn btn-mustard">{{burger_name}}</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                {{/unless}}
             {{/each}}
         </div>
-    </section>
-
-    <form class="create-form">
-        <div class="form-group">
-            <label for="name"></label>
-            <textarea id="name" name="burger-name" rows="2" cols="40" placeholder="What do you want to eat?"></textarea>
+        <div class="col-lg-4 text-center">
+            <img class="mb-3" src="assets/img/burger.png">
+            <form action="/burgers/create" method="POST">
+                <div class="form-group">
+                    <input type="text" name="burger_name" class="form-control text-center" maxlength="50" placeholder="Enter Burger Name">
+                    <button class="btn btn-ketchup btn-block my-2" type="submit">Add Burger</button>
+                </div>
+            </form>
         </div>
-        <button type="submit">Add Burger</button>
-    </form>
+        <div class="col-lg-4">
+            <h2 class="header">Burgers Devoured</h2>
+            {{#each burgers}}
+                {{#if this.devoured}}
+                    <div>
+                        <ul>
+                            <li>
+                                <button disabled class="btn btn-mustard">{{burger_name}}</button>
+                            </li>
+                        </ul>
+                    </div>
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
 </div>
